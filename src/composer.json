@@ -10,7 +10,6 @@
         "inertiajs/inertia-laravel": "^2.0",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
-        "prettus/l5-repository": "^2.10",
         "vinkla/hashids": "^13.0"
     },
     "require-dev": {
