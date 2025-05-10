@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Filters\Contracts\QueryFilter;
 use App\Filters\FilterTemplate;
 use App\Filters\WhereInFilter;
+use App\Filters\WhereLikeFilter;
 use Illuminate\Support\Collection;
 
 class MovieControllerService
@@ -13,6 +14,13 @@ class MovieControllerService
     protected function getFilters(): Collection
     {
         return collect([
+            new FilterTemplate(
+                value: 'name',
+                label: 'Name',
+                queryFilter: WhereLikeFilter::class,
+                inputType: 'search',
+                placeholder: 'Search movie by name'
+            ),
             new FilterTemplate(
                 value: 'genre',
                 label: 'Genre',

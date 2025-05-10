@@ -63,3 +63,23 @@ test('it filters movies by genre in MovieListController', function () {
                 ->etc()
         );
 });
+
+test('it filters movies by name in MovieListController', function () {
+    $company = Company::factory()->create();
+
+    Movie::factory()->for($company, 'producer')->create(['name' => 'The Dark Knight']);
+    Movie::factory()->for($company, 'producer')->create(['name' => 'The Godfather']);
+    Movie::factory()->for($company, 'producer')->create(['name' => 'Barbie']);
+
+    $response = $this->getJson(route('api.movies.list', ['name' => 'dark']));
+
+    $response->assertOk()
+        ->assertJson(
+            fn(AssertableJson $json) =>
+            $json->has('data', 1)
+                ->has('meta')
+                ->has('links')
+        );
+
+    expect($response->json('data.0.name'))->toBe('The Dark Knight');
+});
