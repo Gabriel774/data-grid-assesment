@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -44,5 +45,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function moviePreferences(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Movie::class,
+            'movie_user_preferences',
+            'user_id',
+            'movie_id'
+        )->withPivot('is_fan');
+    }
+
+    public function favoriteMovies(): BelongsToMany
+    {
+        return $this->moviePreferences()->wherePivot('is_fan', true);
+    }
+
+    public function hatedMovies(): BelongsToMany
+    {
+        return $this->moviePreferences()->wherePivot('is_fan', false);
     }
 }
