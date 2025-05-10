@@ -13,6 +13,7 @@ class FilterTemplate
         public string $inputType,
         public ?string $queryColumn = null,
         public ?string $placeholder = null,
+        public array $extra_data = []
     ) {
     }
 
@@ -30,7 +31,8 @@ class FilterTemplate
             'label' => $this->label,
             'type' => $this->inputType,
             'value' => $this->value,
-            'placeholder' => $this->placeholder
+            'placeholder' => $this->placeholder,
+            'extra_data' => $this->extra_data
         ];
     }
 }

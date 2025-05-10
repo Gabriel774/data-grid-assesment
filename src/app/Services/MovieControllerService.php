@@ -2,13 +2,14 @@
 
 namespace App\Services;
 
-use App\Filters\Contracts\QueryFilter;
+use App\Enums\MovieGenre;
 use App\Filters\FilterTemplate;
+use App\Filters\WhereDateFilter;
 use App\Filters\WhereInFilter;
 use App\Filters\WhereLikeFilter;
 use Illuminate\Support\Collection;
 
-class MovieControllerService
+class MovieControllerService extends BaseControllerService
 {
     /** @var FilterTemplate[] */
     protected function getFilters(): Collection
@@ -18,7 +19,7 @@ class MovieControllerService
                 value: 'name',
                 label: 'Name',
                 queryFilter: WhereLikeFilter::class,
-                inputType: 'search',
+                inputType: 'text',
                 placeholder: 'Search movie by name'
             ),
             new FilterTemplate(
@@ -26,23 +27,19 @@ class MovieControllerService
                 label: 'Genre',
                 queryFilter: WhereInFilter::class,
                 inputType: 'select',
-                placeholder: 'Select movie genre'
+                placeholder: 'Select movie genre',
+                extra_data: [
+                    'options' => collect(MovieGenre::cases())->map->value
+                ]
             ),
             new FilterTemplate(
-                value: 'company',
-                label: 'Producer',
-                queryFilter: WhereInFilter::class,
-                inputType: 'select',
+                value: 'release_date',
+                label: 'Release date',
+                queryFilter: WhereDateFilter::class,
+                inputType: 'date',
                 queryColumn: 'producer_id',
-                placeholder: 'Select a movie producer'
+                placeholder: 'Filter movies by release date'
             )
         ]);
-    }
-
-    public function getFiltersForPipeline(): array
-    {
-        return $this->getFilters()
-            ->map(fn(FilterTemplate $filterTemplate): QueryFilter => $filterTemplate->toQueryFilter())
-            ->toArray();
     }
 }
