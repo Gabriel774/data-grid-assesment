@@ -17,7 +17,7 @@ class MovieFactory extends Factory
             'producer_id' => Company::factory(),
             'name' => $this->faker->sentence(3),
             'release_date' => $this->faker->date(),
-            'synopsis' => $this->faker->paragraph(),
+            'synopsis' => $this->faker->text(200),
             'genre' => $this->faker->randomElement(MovieGenre::cases())->value,
         ];
     }
