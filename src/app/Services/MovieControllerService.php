@@ -37,7 +37,6 @@ class MovieControllerService extends BaseControllerService
                 label: 'Release date',
                 queryFilter: WhereDateFilter::class,
                 inputType: 'date',
-                queryColumn: 'producer_id',
                 placeholder: 'Filter movies by release date'
             )
         ]);

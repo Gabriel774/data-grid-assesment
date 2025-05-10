@@ -16,6 +16,8 @@ class Movie extends Model
 
     protected $casts = ['genre' => MovieGenre::class, 'release_date' => 'datetime'];
 
+    protected $with = ['producer'];
+
     public function producer(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'producer_id');

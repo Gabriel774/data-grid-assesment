@@ -18,5 +18,7 @@ interface UserRepositoryInterface
 
     public function delete(int $id): void;
 
-    public function paginate(int $perPage = 15, ?int $page = null): LengthAwarePaginator;
+    public function paginate(int $perPage = 15, int $page = 1): LengthAwarePaginator;
+
+    public function setQueryFilters(array $queryFilters): static;
 }

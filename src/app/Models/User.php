@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -65,5 +66,15 @@ class User extends Authenticatable
     public function hatedMovies(): BelongsToMany
     {
         return $this->moviePreferences()->wherePivot('is_fan', false);
+    }
+
+    protected function favoriteMoviesNames(): Attribute
+    {
+        return Attribute::make(fn(): string => $this->favoriteMovies->pluck('name')->implode(', '));
+    }
+    
+    protected function hatedMoviesNames(): Attribute
+    {
+        return Attribute::make(fn(): string => $this->hatedMovies->pluck('name')->implode(', '));
     }
 }
