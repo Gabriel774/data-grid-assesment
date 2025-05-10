@@ -2,12 +2,15 @@
 
 namespace App\Repositories;
 
+use App\Filters\FilterPipeline;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 abstract class BaseRepository
 {
+    protected array $queryFilters = [];
+
     protected Model $model;
 
     public function __construct()
@@ -15,7 +18,7 @@ abstract class BaseRepository
         $this->model = $this->getModel();
     }
 
-    abstract static protected function getModel(): Model;
+    abstract protected static function getModel(): Model;
 
     public function all(): Collection
     {
@@ -46,10 +49,26 @@ abstract class BaseRepository
         $this->find($id)->delete();
     }
 
-    public function paginate(int $perPage = 15, ?int $page = null): LengthAwarePaginator
+    public function paginate(int $perPage = 15, int $page = 1): LengthAwarePaginator
     {
-        $page = $page ?? request()->input('page', 1);
+        $query = $this->model->newQuery();
 
-        return $this->model->newQuery()->paginate($perPage, ['*'], 'page', $page);
+        $filterPipeline = $this->getFilterpipeline();
+
+        return $filterPipeline
+            ->applyTo($query)
+            ->paginate($perPage, ['*'], 'page', $page);
+    }
+
+    public function setQueryFilters(array $queryFilters): static
+    {
+        $this->queryFilters = $queryFilters;
+
+        return $this;
+    }
+
+    protected function getFilterpipeline(): FilterPipeline
+    {
+        return new FilterPipeline(...$this->queryFilters);
     }
 }
