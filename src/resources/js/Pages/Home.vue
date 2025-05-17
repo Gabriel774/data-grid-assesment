@@ -1,13 +1,10 @@
 <script setup>
-  import NavTemplate from '@/components/templates/NavTemplate.vue'
+import NavTemplate from '@/components/templates/NavTemplate.vue'
+defineOptions({ layout: NavTemplate })
 </script>
 
 <template>
-  <NavTemplate>
-    <p>eae</p>
-    <p>eae</p>
-  </NavTemplate>
+  <div>
+      test
+  </div>
 </template>
-
-<style>
-</style>

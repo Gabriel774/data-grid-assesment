@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-    import NavLink from '@/components/atoms/NavLink.vue'
+import NavBar from '@/components/organisms/NavBar.vue'
 </script>
 
 <template>
-    <div class="bg-[#232528] h-[100dvh] ">
-            <NavLink foo="eae"></NavLink>
-    </div>
+    <NavBar />
+
+    <slot/>
 </template>
