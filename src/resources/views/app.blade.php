@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title inertia>Curotec tecnical assignment</title>
+    <title inertia>Curotec tecnical assesment</title>
     <link rel="icon" href="https://www.curotec.com/wp-content/uploads/2023/10/cropped-curotec-favicon.png?w=32"
         sizes="32x32">
     <link rel="icon" href="https://www.curotec.com/wp-content/uploads/2023/10/cropped-curotec-favicon.png?w=192"
