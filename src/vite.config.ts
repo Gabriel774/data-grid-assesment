@@ -14,6 +14,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': path.resolve(__dirname, 'resources/js'),
+            ziggy: path.resolve('vendor/tightenco/ziggy'),
         },
     },
     server: {
@@ -22,7 +23,7 @@ export default defineConfig({
         strictPort: true,
 
         origin: 'http://localhost:5173',
-        
+
         cors: {
             origin: ['http://localhost:8000'],
             credentials: true,

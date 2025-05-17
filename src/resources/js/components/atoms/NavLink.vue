@@ -5,10 +5,10 @@ const props = defineProps({
     label: { type: String, required: true },
     link: {
         type: String, required: true, validator: (value: string) => {
-            const isAbsoluteUrl = /^https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!$&'()*+,;=.]+$/.test(value);
-            const isRelativePath = /^\/[a-zA-Z0-9-_\/]*$/.test(value);
+            const isHttpUrl = /^https?:\/\/[^\s/$.?#].[^\s]*$/i.test(value);
+            const isRelativePath = /^\/[\w\-\/]*$/.test(value);
 
-            return isAbsoluteUrl || isRelativePath;
+            return isHttpUrl || isRelativePath;
         }
     },
 })
@@ -23,5 +23,9 @@ const props = defineProps({
 a {
     text-decoration: none;
     color: #222c47;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 </style>

@@ -12,6 +12,7 @@
     <link rel="icon" href="https://www.curotec.com/wp-content/uploads/2023/10/cropped-curotec-favicon.png?w=192"
         sizes="192x192">
 
+    @routes
     @vite('resources/js/app.ts')
     @inertiaHead
 </head>
