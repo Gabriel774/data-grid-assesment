@@ -1,15 +1,12 @@
 <?php
 
+use App\Http\Controllers\Movie\MovieListViewController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Response;
 
-Route::get('/', function () {
-    return inertia('Home');
-})->name('home');
+Route::get('/', fn(): Response => inertia('Home'))->name('home');
 
-
-Route::get('/musics', function () {
-    return inertia('Home');
-})->name('music.list');
+Route::get('/movies', MovieListViewController::class)->name('movies.list');
 
 
 Route::get('/users', function () {

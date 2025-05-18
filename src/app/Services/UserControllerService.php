@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Filters\FilterTemplate;
 use App\Filters\WhereLikeFilter;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Collection;
 
 class UserControllerService extends BaseControllerService
@@ -27,5 +28,22 @@ class UserControllerService extends BaseControllerService
                 placeholder: 'Select movie genre',
             ),
         ]);
+    }
+
+    public function getDataForView(): array
+    {
+        return [
+            'title' => 'User list',
+            'table' => [
+                'filters' => $this->getFiltersFormatted(),
+                'fields' => [
+                    'name' => 'Name',
+                    'email' => 'E-mail',
+                    'favorite_movies' => 'Favorite movies',
+                    'hated_movies' => 'Hated movies'
+                ],
+            ],
+
+        ];
     }
 }

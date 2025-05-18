@@ -24,10 +24,9 @@ test('movie list returns paginated list of movies using resource', function () {
             'data' => [
                 '*' => [
                     'name',
-                    'producer',
+                    'producer_name',
                     'genre',
                     'release_date',
-                    'synopsis',
                     'fans_count',
                     'haters_count',
                 ],

@@ -15,7 +15,7 @@ import { route } from 'ziggy-js';
             <div class="nav-link-container">
                 <NavLink label="Home" :link="route('home')" />
 
-                <NavLink label="Movies" :link="route('music.list')" />
+                <NavLink label="Movies" :link="route('movies.list')" />
 
                 <NavLink label="Users" :link="route('user.list')" />
             </div>

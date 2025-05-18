@@ -1,7 +1,7 @@
 <script setup>
     const props = defineProps({
         size: {
-            type: String, default: 22
+            type: Number, default: 22
         }
     });
 </script>

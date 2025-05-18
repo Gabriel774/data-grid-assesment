@@ -6,3 +6,12 @@ body {
     margin: 0;
     scroll-behavior: smooth;
 }
+
+/*variables*/
+
+:root {
+    --primary: #12263A;
+    --primary-light: #173450;
+    --secondary: #274666;
+    --secondary-light: #2c5074;
+}

@@ -9,11 +9,16 @@ use Illuminate\Support\Collection;
 abstract class BaseControllerService
 {
     abstract protected function getFilters(): Collection;
+    abstract public function getDataForView(): array;
 
-    public function getFiltersForPipeline(): array
+    public function getFiltersFormatted(bool $forPipeline = false): array
     {
         return $this->getFilters()
-            ->map(fn(FilterTemplate $filterTemplate): QueryFilter => $filterTemplate->toQueryFilter())
+            ->map(function (FilterTemplate $filterTemplate) use ($forPipeline): QueryFilter|array {
+                return $forPipeline ? $filterTemplate->toQueryFilter() : $filterTemplate->toInterfaceFilter();
+            })
             ->toArray();
     }
+
+
 }

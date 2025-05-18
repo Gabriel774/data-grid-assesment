@@ -11,12 +11,9 @@ class MovieResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            'producer' => [
-                'name' => $this->producer->name,
-            ],
-            'genre' => $this->genre,
-            'release_date' => $this->release_date->toDateString(),
-            'synopsis' => $this->synopsis,
+            'producer_name' => $this->producer->name,
+            'genre' => ucfirst($this->genre->value),
+            'release_date' => $this->release_date->toFormattedDateString(),
             'fans_count' => $this->fans()->count(),
             'haters_count' => $this->haters()->count(),
         ];

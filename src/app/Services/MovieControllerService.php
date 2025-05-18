@@ -41,4 +41,24 @@ class MovieControllerService extends BaseControllerService
             )
         ]);
     }
+
+    public function getDataForView(): array
+    {
+        return [
+            'title' => 'Movie list',
+            'filters' => $this->getFilters()->map(fn(FilterTemplate $filterTemplate): array => $filterTemplate->toInterfaceFilter()),
+            'table' => [
+                'filters' => $this->getFiltersFormatted(),
+                'fields' => [
+                    'name' => 'Title',
+                    'producer_name' => 'Producer ',
+                    'genre' => 'Genre',
+                    'release_date' => 'Release date',
+                    'haters_count' => 'Count of haters',
+                    'fans_count' => 'Count of fans',
+                ],
+            ],
+
+        ];
+    }
 }
