@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import DataGrid from '@/components/organisms/DataGrid.vue';
 import NavTemplate from '@/components/templates/NavTemplate.vue'
 import { route } from 'ziggy-js';
@@ -7,8 +7,9 @@ import dataGridStore from '@/store/dataGridStore';
 import DataGridControls from '@/components/organisms/DataGridControls.vue';
 const store = dataGridStore();
 
-onMounted(async () => {
-  store.fetchData(route('api.movies.list'))
+onMounted((): void => {
+  store.setCurrentPageUrl(route('api.movies.list'))
+  store.fetchData()
 })
 
 defineOptions({ layout: NavTemplate })
@@ -23,7 +24,8 @@ const props = defineProps({
 
 <template>
   <div id="data-grid">
-    <DataGridControls/>
+    <h2 id="title">{{ props.title }}</h2>
+    <DataGridControls />
 
     <DataGrid :columns="Object.values(props.table.fields)" :fields="Object.keys(props.table.fields)" />
   </div>
@@ -36,5 +38,9 @@ const props = defineProps({
   justify-content: center;
   align-items: center;
   gap: 20px;
+
+  #title {
+    margin-right: auto;
+  }
 }
 </style>

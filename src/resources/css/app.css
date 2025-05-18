@@ -7,6 +7,51 @@ body {
     scroll-behavior: smooth;
 }
 
+.btn {
+    border: 0;
+    padding: 10px 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--primary);
+    transition: background-color .3s;
+    color: #FFF;
+    font-size: 16px;
+    border-radius: 10px;
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: var(--primary-light);
+}
+
+/*animations*/
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes enterFromRight {
+    from {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes wave {
+    from {
+        transform: translateX(-50%);
+    }
+
+    to {
+        transform: translateX(50%);
+    }
+}
+
+
 /*variables*/
 
 :root {

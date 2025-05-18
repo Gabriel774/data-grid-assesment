@@ -1,14 +1,16 @@
 <script setup>
 import CarretLeft from '../atoms/CarretLeft.vue';
 import CarretRight from '../atoms/CarretRight.vue';
+import dataGridStore from '@/store/dataGridStore';
 
 const emit = defineEmits(['nextPage', 'previousPage'])
-
+const store = dataGridStore();
 </script>
 
 <template>
     <div class="page-controls">
-        <button class="button-previous-page" @click="emit('previousPage')">
+        <button :disabled="store.loading || !store.previousPageUrl" class="btn button-previous-page"
+            @click="emit('previousPage')">
             <CarretLeft />
 
             <span>
@@ -16,7 +18,7 @@ const emit = defineEmits(['nextPage', 'previousPage'])
             </span>
         </button>
 
-        <button class="button-next-page" @click="emit('nextPage')">
+        <button :disabled="store.loading || !store.nextPageUrl" class="btn button-next-page" @click="emit('nextPage')">
             <span>
                 Next page
             </span>
@@ -30,21 +32,20 @@ const emit = defineEmits(['nextPage', 'previousPage'])
 .page-controls {
     display: flex;
     align-items: center;
+    justify-self: flex-end;
 
     button {
         padding: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
         font-size: 14px;
-        border: 0;
-        color: #fff;
-        cursor: pointer;
-        transition: background-color .2s;
+        transition: opacity background-color .2s;
         user-select: none;
         font-weight: 600;
         width: 140px;
+    }
+
+    button:disabled {
+        cursor: not-allowed;
+        opacity: .6;
     }
 
     .button-previous-page {

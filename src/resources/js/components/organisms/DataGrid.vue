@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import dataGridStore from '@/store/dataGridStore';
+import Skeleton from '../atoms/Skeleton.vue';
 
 const props = defineProps({ columns: { type: Array }, fields: { type: Array }, data: { type: Array } })
 
@@ -12,19 +13,26 @@ const store = dataGridStore();
             <thead>
                 <tr>
                     <th v-for="(column) in props.columns" :key="column">
-                        <span>
-                            {{ column }}
-                        </span>
+                        {{ column }}
                     </th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr v-for="(register, index) in store.data" :key="index">
-                    <td v-for="(field, index) in props.fields" :key="index">
-                        {{ register[field] }}
-                    </td>
-                </tr>
+                <template v-if="!store.loading">
+                    <tr v-for="(register, index) in store.data" :key="index">
+                        <td v-for="(field, index) in props.fields" :key="index">
+                            {{ register[field] }}
+                        </td>
+                    </tr>
+                </template>
+                <template v-else>
+                    <tr v-for="(index) in 15" :key="index">
+                        <td v-for="(field, index) in props.fields" :key="index">
+                            <Skeleton :width="120" :height="20" />
+                        </td>
+                    </tr>
+                </template>
             </tbody>
         </table>
     </div>
@@ -34,9 +42,10 @@ const store = dataGridStore();
 .table-container {
     border-radius: 12px;
     overflow-y: auto;
-    max-width: 100%;
-    
+    width: 100%;
+
     table {
+        width: 100%;
         color: #FFF;
         border-collapse: collapse;
         border-spacing: 0;
@@ -61,9 +70,7 @@ const store = dataGridStore();
     }
 
     th {
-        span {
-            cursor: pointer;
-        }
+        cursor: pointer;
     }
 }
 </style>
