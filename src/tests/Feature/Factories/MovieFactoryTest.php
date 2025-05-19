@@ -4,11 +4,9 @@ use App\Enums\MovieGenre;
 use App\Models\Company;
 use App\Models\Movie;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Carbon;
 
-uses(RefreshDatabase::class);
 
 test('movie factory creates valid movie', function () {
     $movie = Movie::factory()

@@ -2,12 +2,10 @@
 
 use App\Enums\MovieGenre;
 use App\Filters\WhereInFilter;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Movie;
 use App\Models\Company;
 use App\Filters\FilterPipeline;
 
-uses(RefreshDatabase::class);
 
 test('filter pipeline applies genre and producer filters', function () {
     $companyA = Company::factory()->create();

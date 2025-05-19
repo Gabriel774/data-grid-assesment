@@ -29,7 +29,7 @@ class MovieControllerService extends BaseControllerService
                 inputType: 'select',
                 placeholder: 'Select movie genre',
                 extra_data: [
-                    'options' => collect(MovieGenre::cases())->map->value
+                    'options' => collect(MovieGenre::cases())->map(fn(MovieGenre $movieGenre) => ucfirst($movieGenre->value))
                 ]
             ),
             new FilterTemplate(
@@ -45,6 +45,7 @@ class MovieControllerService extends BaseControllerService
     public function getDataForView(): array
     {
         return [
+            'id' => 'movie_list',
             'title' => 'Movie list',
             'filters' => $this->getFilters()->map(fn(FilterTemplate $filterTemplate): array => $filterTemplate->toInterfaceFilter()),
             'table' => [

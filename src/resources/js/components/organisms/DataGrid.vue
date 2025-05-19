@@ -2,17 +2,20 @@
 import dataGridStore from '@/store/dataGridStore';
 import Skeleton from '../atoms/Skeleton.vue';
 
-const props = defineProps({ columns: { type: Array }, fields: { type: Array }, data: { type: Array } })
+const props = defineProps({ fields: { type: Array } })
 
 const store = dataGridStore();
 </script>
 
 <template>
-    <div class="table-container">
+    <h2 v-if="!store.loading && store.data.length < 1">
+        No data available
+    </h2>
+    <div v-else class="table-container">
         <table>
             <thead>
                 <tr>
-                    <th v-for="(column) in props.columns" :key="column">
+                    <th v-for="([key, column]) in props.fields" :key="key">
                         {{ column }}
                     </th>
                 </tr>
@@ -21,11 +24,12 @@ const store = dataGridStore();
             <tbody>
                 <template v-if="!store.loading">
                     <tr v-for="(register, index) in store.data" :key="index">
-                        <td v-for="(field, index) in props.fields" :key="index">
+                        <td v-for="([field, key]) in props.fields" :key="key">
                             {{ register[field] }}
                         </td>
                     </tr>
                 </template>
+
                 <template v-else>
                     <tr v-for="(index) in 15" :key="index">
                         <td v-for="(field, index) in props.fields" :key="index">
@@ -67,10 +71,6 @@ const store = dataGridStore();
         tr:nth-child(odd) {
             background-color: var(--secondary);
         }
-    }
-
-    th {
-        cursor: pointer;
     }
 }
 </style>

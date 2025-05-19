@@ -27,6 +27,14 @@ body {
     background-color: var(--primary-light);
 }
 
+.inp {
+    outline: none;
+    border: 1px solid #CCC;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #FFF;
+}
+
 /*animations*/
 
 @keyframes appear {

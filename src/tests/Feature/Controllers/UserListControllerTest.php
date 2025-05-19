@@ -22,6 +22,7 @@ uses(RefreshDatabase::class)->beforeEach(function () {
     ]);
 });
 
+
 test('it returns paginated list of users with correct structure', function () {
     $response = $this->getJson(route('api.users.list'));
 
@@ -39,7 +40,7 @@ test('it returns paginated list of users with correct structure', function () {
             'links',
         ])
         ->assertJson(
-            fn (AssertableJson $json) =>
+            fn(AssertableJson $json) =>
             $json->has('data', 3)
                 ->hasAll(['meta', 'links'])
         );
@@ -50,7 +51,7 @@ test('it filters users by name', function () {
 
     $response->assertOk()
         ->assertJson(
-            fn (AssertableJson $json) =>
+            fn(AssertableJson $json) =>
             $json->has('data', 1)
                 ->where('data.0.name', 'Jane Smith')
                 ->hasAll(['meta', 'links'])
@@ -62,7 +63,7 @@ test('it filters users by email', function () {
 
     $response->assertOk()
         ->assertJson(
-            fn (AssertableJson $json) =>
+            fn(AssertableJson $json) =>
             $json->has('data', 1)
                 ->where('data.0.email', 'alice@another.com')
                 ->hasAll(['meta', 'links'])

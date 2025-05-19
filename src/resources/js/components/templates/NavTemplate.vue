@@ -18,6 +18,10 @@ main {
     overflow-y: auto;
     padding: 0 10%;
 
+    @media (max-width: 1200px) {
+       padding: 0 5%; 
+    }
+
     .main-container {
         display: flex;
         flex-direction: column;

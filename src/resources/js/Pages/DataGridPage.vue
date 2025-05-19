@@ -8,7 +8,12 @@ import DataGridControls from '@/components/organisms/DataGridControls.vue';
 const store = dataGridStore();
 
 onMounted((): void => {
-  store.setCurrentPageUrl(route('api.movies.list'))
+
+  store.mapDatafromCache();
+  if (!store.currentPageUrl) {
+    store.setCurrentPageUrl(route('api.movies.list'))
+  }
+  store.setFilters(props.filters)
   store.fetchData()
 })
 
@@ -27,7 +32,7 @@ const props = defineProps({
     <h2 id="title">{{ props.title }}</h2>
     <DataGridControls />
 
-    <DataGrid :columns="Object.values(props.table.fields)" :fields="Object.keys(props.table.fields)" />
+    <DataGrid :fields="Object.entries(props.table.fields)" />
   </div>
 </template>
 

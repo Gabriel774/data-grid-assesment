@@ -15,9 +15,8 @@ class DemoSeeder extends Seeder
 
         User::factory()->count(50)->create();
 
-        Movie::factory()->count(50)->make()->each(function ($movie) use ($companies) {
-            $movie->producer_id = $companies->random()->id;
-            $movie->save();
-        });
+        Movie::factory()->count(50)->create([
+            'producer_id' => fn() => $companies->random()->id,
+        ]);
     }
 }
