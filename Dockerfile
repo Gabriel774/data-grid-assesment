@@ -18,6 +18,7 @@ COPY src/package*.json ./
 
 RUN npm install
 
+
 RUN chmod +x node_modules/.bin/vite
 
 COPY src ./
@@ -30,6 +31,8 @@ COPY supervisord.conf /etc/supervisord.conf
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+
+RUN npm run build
 
 EXPOSE 9000 5173
 
