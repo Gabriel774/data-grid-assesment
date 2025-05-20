@@ -82,6 +82,11 @@ class {$name}Repository extends BaseRepository implements {$name}RepositoryInter
     {
         return new {$name}();
     }
+
+    protected static function getAdditionalFilters(): array
+    {
+        return [];
+    }
 }
 
 PHP;
