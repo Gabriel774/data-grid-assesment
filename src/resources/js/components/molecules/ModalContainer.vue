@@ -21,7 +21,7 @@ const handleClick = (target) => {
     left: 0;
     right: 0;
     bottom: 0;
-    animation: appear .5s;
+    animation: appear .3s;
     z-index: 99;
     display: flex;
 }

@@ -19,6 +19,7 @@ abstract class BaseRepository
     }
 
     abstract protected static function getModel(): Model;
+    abstract protected static function getAdditionalFilters(): array;
 
     public function all(): Collection
     {
@@ -69,6 +70,6 @@ abstract class BaseRepository
 
     protected function getFilterpipeline(): FilterPipeline
     {
-        return new FilterPipeline(...$this->queryFilters);
+        return new FilterPipeline(...array_merge($this->queryFilters, $this->getAdditionalFilters()));
     }
 }

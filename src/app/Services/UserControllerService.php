@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Filters\FilterTemplate;
 use App\Filters\WhereLikeFilter;
-use App\Http\Resources\UserResource;
 use Illuminate\Support\Collection;
 
 class UserControllerService extends BaseControllerService
@@ -22,10 +21,10 @@ class UserControllerService extends BaseControllerService
             ),
             new FilterTemplate(
                 value: 'email',
-                label: 'Genre',
+                label: 'E-mail',
                 queryFilter: WhereLikeFilter::class,
                 inputType: 'text',
-                placeholder: 'Select movie genre',
+                placeholder: 'Search user by e-mail',
             ),
         ]);
     }

@@ -12,4 +12,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return new User();
     }
+
+    protected static function getAdditionalFilters(): array
+    {
+        return [];
+    }
 }

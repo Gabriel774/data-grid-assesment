@@ -1,10 +1,31 @@
 <script setup lang="ts">
 import dataGridStore from '@/store/dataGridStore';
 import Skeleton from '../atoms/Skeleton.vue';
+import CarretUp from '../atoms/CarretUp.vue';
+import CarretDown from '../atoms/CarretDown.vue';
+import { computed } from 'vue';
 
 const props = defineProps({ fields: { type: Array } })
 
 const store = dataGridStore();
+
+
+const sortOrientation: 'asc' | 'desc' | null = computed(() => store.activeFilters.sort?.split(',')[1]);
+
+const sortColumn: string = computed(() => store.activeFilters.sort?.split(',')[0]);
+
+function sortBy(key: string): void {
+    store.setActiveFilters('sort', `${key},${getSortOrientation(key)}`);
+}
+
+
+function getSortOrientation(key: string): string {
+    if (sortColumn.value !== key) {
+        return 'asc';
+    }
+
+    return sortOrientation.value == 'asc' ? 'desc' : 'asc';
+}
 </script>
 
 <template>
@@ -15,8 +36,13 @@ const store = dataGridStore();
         <table>
             <thead>
                 <tr>
-                    <th v-for="([key, column]) in props.fields" :key="key">
-                        {{ column }}
+                    <th @click="() => sortBy(key)" v-for="([key, column]) in props.fields" :key="key">
+                        <div class="th-content">
+                            {{ column }}
+
+                            <component v-if="sortColumn == key"
+                                :is="sortOrientation === 'asc' ? CarretUp : CarretDown" />
+                        </div>
                     </th>
                 </tr>
             </thead>
@@ -65,6 +91,17 @@ const store = dataGridStore();
     tr {
         background-color: var(--primary);
 
+    }
+
+    th {
+        user-select: none;
+        cursor: pointer;
+
+        .th-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
     }
 
     tbody {
