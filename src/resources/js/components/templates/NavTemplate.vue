@@ -14,12 +14,12 @@ import NavBar from '@/components/organisms/NavBar.vue'
 
 <style scoped>
 main {
-    height: calc(100dvh - 82px);
+    height: calc(100dvh - 88px);
     overflow-y: auto;
     padding: 0 10%;
 
     @media (max-width: 1200px) {
-       padding: 0 5%; 
+        padding: 0 5%;
     }
 
     .main-container {

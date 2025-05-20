@@ -1,4 +1,4 @@
-import { filterObjectValues } from "@/helpers";
+import { filterObjectValues, getCleanUrl } from "@/helpers";
 
 export default {
     async fetchData(resetPage: boolean = false): Promise<void> {
@@ -43,7 +43,9 @@ export default {
 
         this.pendingFilters = { ...activeFilters };
 
-        this.fetchData();
+        this.fetchData(true);
+
+        this.setCurrentPageUrl(getCleanUrl(this.currentPageUrl));
     },
     fetchNextPage(): void {
         this.setCurrentPageUrl(this.nextPageUrl);
@@ -60,12 +62,13 @@ export default {
 
         this.fetchData(true);
 
-        const url = new URL(this.currentPageUrl);
-
-        this.setCurrentPageUrl(url.origin + url.pathname)
+        this.setCurrentPageUrl(getCleanUrl(this.currentPageUrl));
     },
     setFilters(filters: []): void {
         this.filters = filters;
+    },
+    setId(id: string): void {
+        this.id = id;
     },
     getValueWithStoreId(value: string): string {
         return `${value}_${this.id}`
@@ -79,8 +82,8 @@ export default {
         this.setItemInLocalStorage('previousPageUrl', this.previousPageUrl);
     },
     mapDatafromCache(): void {
-        this.pendingFilters = { ...JSON.parse(this.getItemInLocalStorage('pendingFilters') || '') };
-        this.activeFilters = { ...JSON.parse(this.getItemInLocalStorage('activeFilters') || '') };
+        this.pendingFilters = { ...JSON.parse(this.getItemInLocalStorage('pendingFilters') || '{}') };
+        this.activeFilters = { ...JSON.parse(this.getItemInLocalStorage('activeFilters') || '{}') };
         this.currentPage = this.getItemInLocalStorage('currentPage');
         this.currentPageUrl = this.getItemInLocalStorage('currentPageUrl');
         this.nextPageUrl = this.getItemInLocalStorage('nextPageUrl');
@@ -91,6 +94,16 @@ export default {
     },
     getItemInLocalStorage(key: string): string | null {
         return localStorage.getItem(this.getValueWithStoreId(key))
+    },
+    resetFilters(): void {
+        this.pendingFilters = {};
+        this.activeFilters = {};
+        this.currentPage = 1;
+        this.currentPageUrl = getCleanUrl(this.currentPageUrl);
+        this.nextPageUrl = undefined;
+        this.previousPageUrl = undefined;
+
+        this.fetchData();
     }
 }
 

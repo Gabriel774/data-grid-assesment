@@ -3,6 +3,11 @@ set -e
 
 cd /var/www/html
 
+if [ ! -f .env ]; then
+  cp .env.example .env
+  php artisan key:generate
+fi
+
 mkdir -p storage/framework/{cache,sessions,views} storage/logs bootstrap/cache
 
 echo "*\n!.gitignore" | tee storage/framework/cache/.gitignore \

@@ -2,17 +2,20 @@
 import DataGrid from '@/components/organisms/DataGrid.vue';
 import NavTemplate from '@/components/templates/NavTemplate.vue'
 import { route } from 'ziggy-js';
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import dataGridStore from '@/store/dataGridStore';
 import DataGridControls from '@/components/organisms/DataGridControls.vue';
 const store = dataGridStore();
 
 onMounted((): void => {
+  store.setId(props.id);
 
   store.mapDatafromCache();
+
   if (!store.currentPageUrl) {
-    store.setCurrentPageUrl(route('api.movies.list'))
+    store.setCurrentPageUrl(route(props.get_data_route))
   }
+
   store.setFilters(props.filters)
   store.fetchData()
 })
@@ -22,7 +25,9 @@ defineOptions({ layout: NavTemplate })
 const props = defineProps({
   title: { type: String },
   filters: { type: Array },
-  table: { type: Object }
+  table: { type: Object },
+  get_data_route: { type: String },
+  id: { type: String }
 })
 
 </script>

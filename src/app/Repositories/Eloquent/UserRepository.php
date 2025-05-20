@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Filters\SortUserFilter;
 use App\Models\User;
 use App\Repositories\BaseRepository;
 use App\Repositories\Contracts\UserRepositoryInterface;
@@ -15,6 +16,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     protected static function getAdditionalFilters(): array
     {
-        return [];
+        return [new SortUserFilter('sort', request()->input('sort'))];
     }
 }

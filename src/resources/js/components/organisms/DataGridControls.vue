@@ -20,6 +20,8 @@ const tags: string[] = computed(() => Object.keys(store.activeFilters).filter((k
 
 <template>
     <div class="data-grid-controls">
+        <button @click="store.resetFilters()" class="btn">Reset filters</button>
+
         <button @click="filtersModalOpen = true" class="btn">
             <span>
                 Filters
@@ -43,6 +45,7 @@ const tags: string[] = computed(() => Object.keys(store.activeFilters).filter((k
                 <CloseIcon @click="() => store.setActiveFilters(tag, undefined)" />
             </div>
         </div>
+
     </div>
 
     <FiltersModal @close="filtersModalOpen = false" v-if="filtersModalOpen" />

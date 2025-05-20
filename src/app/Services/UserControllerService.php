@@ -32,7 +32,10 @@ class UserControllerService extends BaseControllerService
     public function getDataForView(): array
     {
         return [
+            'id' => 'user_list',
             'title' => 'User list',
+            'filters' => $this->getFilters()->map(fn(FilterTemplate $filterTemplate): array => $filterTemplate->toInterfaceFilter()),
+            'get_data_route' => 'api.users.list',
             'table' => [
                 'filters' => $this->getFiltersFormatted(),
                 'fields' => [

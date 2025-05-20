@@ -48,6 +48,7 @@ class MovieControllerService extends BaseControllerService
             'id' => 'movie_list',
             'title' => 'Movie list',
             'filters' => $this->getFilters()->map(fn(FilterTemplate $filterTemplate): array => $filterTemplate->toInterfaceFilter()),
+            'get_data_route' => 'api.movies.list',
             'table' => [
                 'filters' => $this->getFiltersFormatted(),
                 'fields' => [
