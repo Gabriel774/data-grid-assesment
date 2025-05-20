@@ -32,8 +32,6 @@ COPY supervisord.conf /etc/supervisord.conf
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-RUN npm run build
-
 EXPOSE 9000 5173
 
 ENTRYPOINT ["/entrypoint.sh"]

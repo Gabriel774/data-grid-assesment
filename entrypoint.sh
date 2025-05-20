@@ -23,10 +23,16 @@ rm -f bootstrap/cache/config.php /var/run/crond.pid
 
 composer install --no-interaction --prefer-dist --optimize-autoloader
 
+if ! grep -q "APP_KEY=" .env || [ -z "$(grep APP_KEY= .env | cut -d '=' -f2)" ]; then
+  php artisan key:generate
+fi
+
 chmod +x node_modules/.bin/vite || true
 chmod +x node_modules/@esbuild/linux-x64/bin/esbuild || true
 
 php artisan migrate --force
 php artisan db:seed --force
+
+npm run build
 
 exec "$@"
